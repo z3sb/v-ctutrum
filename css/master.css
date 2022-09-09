@@ -11,6 +11,12 @@ body{
 a{
   text-decoration: none;
 }
+.container{
+  width: 1170px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: auto;
+}
 /* Start Settings Box */
 .settings-box{
   position: fixed;
@@ -153,3 +159,74 @@ a{
   margin:0
 }
 /* End Landing Page */
+
+/* Start About Section */
+.about{
+  padding-top:50px;
+  padding-bottom:50px;
+  display: flex;
+}
+.about .info{
+  flex: 1;
+  padding: 30px;
+}
+.about .info h2{
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--main-color);
+  margin:0 0 10px;
+}
+.about .info p{
+  line-height: 1.8;
+  color: #767676;
+  margin:0;
+}
+.about .image{
+  flex: 1;
+  text-align: center;
+}
+.about .image img{
+  width: 250px;
+}
+/* End About Section */
+
+/* Start Skills Section */
+.skills-section{
+  background-color: #eee;
+  padding-top:50px;
+  padding-bottom:50px;
+}
+.skills-section h2{
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--main-color);
+  margin: 0 0 50px;
+  text-align: center;
+}
+.skills-section .item{
+  background-color: #FFF;
+  display: flex;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.skills-section .item h4{
+  font-weight: bold;
+  width: 140px;
+  text-align: center;
+  line-height: 30px;
+  margin: 0;
+}
+.skills-section .item .progress{
+  height: 30px;
+  width: 100%;
+  background-color: #f6f6f6;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.skills-section .item .progress span{
+  position: absolute;
+  height: 100%;
+  background-color: var(--main-color);
+}
+/* End Skills Section */
