@@ -226,7 +226,11 @@ a{
 }
 .skills-section .item .progress span{
   position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
+  width: 0;
   background-color: var(--main-color);
+  transition: all 0.5s;
 }
 /* End Skills Section */

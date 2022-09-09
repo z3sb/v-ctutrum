@@ -68,3 +68,31 @@ function randomizeImgs(){
   }
 }
 // End Landing 
+
+
+// Select Skills Selector
+let ourSkills = document.querySelector('.skills-section')
+window.onscroll = function () {
+
+  // Skills Offset Top
+  let skillsOffsetTop = ourSkills.offsetTop;
+
+  // Skills Outer Height
+  let skillsOuterHeight = ourSkills.offsetHeight;
+
+  // Window Height
+  let windowHeight = this.innerHeight;
+
+  // Window ScrollTop
+  let windowScrollTop = this.pageYOffset;
+
+  if (windowScrollTop > (skillsOffsetTop + skillsOuterHeight - windowHeight - 200)) {
+
+    let skills = document.querySelectorAll('.skills-section .item .progress span');
+    skills.forEach(ele => {
+      ele.style.width = ele.dataset.progress
+    })
+
+  }
+
+};
