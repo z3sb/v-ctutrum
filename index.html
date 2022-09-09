@@ -4,11 +4,43 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome Link -->
+  <script src="https://kit.fontawesome.com/1e6ed09e58.js" crossorigin="anonymous"></script>
+  <!-- Normalize File Link -->
   <link rel="stylesheet" href="css/normalize.css">
+  <!-- Main CSS File Link -->
   <link rel="stylesheet" href="css/master.css">
   <title>Smpil Design</title>
 </head>
 <body>
+  <!-- Start Settings Box -->
+  <div class="settings-box">
+    <div class="icon" id="settings">
+      <i class="fas fa-cog fa-spin"></i>
+    </div>
+    <div class="settings-content">
+      <div class="option">
+        <h4>Colors</h4>
+        <span class="active" data-color="#fa5b0f" style="background-color: #fa5b0f"></span>
+        <span data-color="#ec1839" style="background-color: #ec1839"></span>
+        <span data-color="#37b182" style="background-color: #37b182"></span>
+        <span data-color="#1854b4" style="background-color: #1854b4"></span>
+        <span data-color="#f021b2" style="background-color: #f021b2"></span>
+      </div>
+      <div class="option bg">
+        <h4>Random Backgrounds</h4>
+        <button class="active" data-run="1">Yes</button>
+        <button data-run="0">No</button>
+      </div>
+      <div class="option">
+        <h4>Show Bullets</h4>
+        <button class="active">Yes</button>
+        <button>No</button>
+      </div>
+    </div>
+  </div>
+  <!-- End Settings Box -->
+
   <!-- Start Landing Page -->
   <div class="landing-page">
     <div class="overlay"></div>
