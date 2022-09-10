@@ -429,3 +429,73 @@ a{
   color: #706f6f;
 }
 /* End Features */
+/* Start Testimonials */
+.testimonials{
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.testimonials::before,
+.testimonials::after{
+  content: '';
+  height: 100%;
+  top: 0;
+  width: 50%;
+  position: absolute;
+}
+.testimonials::before{
+  left: 0;
+  background-color: var(--main-color);
+}
+.testimonials::after{
+  right: 0;
+  background-color: #333;
+}
+.testimonials h2{
+  font-weight: bold;
+  font-size: 30px;
+  color: #fff;
+  margin: 0 0 30px;
+  position: relative;
+  z-index: 2;
+  align-items: left ;
+}
+.testimonials .content{
+  display: flex;
+}
+.testimonials .ts-box{
+  position: relative;
+  z-index: 2;
+  float: left;
+  background-color: #fff;
+  padding:20px;
+  font-size: 22px;
+}
+.testimonials .ts-box:not(:last-of-type){
+  margin-right: 1%;
+}
+.testimonials .ts-box > p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+  font-size: 15px;
+  color: #707070;
+  font-style: italic;  
+}
+.testimonials .ts-box .person-info {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.testimonials .ts-box .person-info img {
+  max-width: 80px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.testimonials .ts-box .person-info h4 {
+  margin: 0 0 10px;
+}
+.testimonials .ts-box .person-info p {
+  color: #707070;
+  margin: 0;
+}
+/* End Testimonials */
