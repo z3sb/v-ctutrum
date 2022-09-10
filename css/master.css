@@ -1,7 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
-*{
-  box-sizing: border-box;
-}
 :root{
   --main-color:#ff9800;
 }
@@ -296,3 +293,103 @@ a{
   border-radius: 50%;
 }
 /* End Gallery */
+
+/* Start Timeline */
+.timeline{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #eee;
+}
+.timeline .timeline-content{
+  position: relative;
+  overflow: hidden;
+
+}
+.timeline .timeline-content::before{
+  content: '';
+  width: 2px;
+  height: 100%;
+  background-color: var(--main-color);
+  position: absolute;
+  left: 50%;
+  margin-left: -1px;
+  top: 0;
+}
+.timeline .timeline-content .year{
+  margin: 20px auto;
+  width: 50px;
+  background-color:var(--main-color);
+  position: relative;
+  z-index: 2;
+  border-radius: 4px;
+  text-align: center;
+  color: #fff;
+  padding: 2px 5px;
+  font-weight: bold;
+}
+.timeline .timeline-content .left,
+.timeline .timeline-content .right{
+  width: calc(50% - 25px);
+  margin-bottom: 40px;
+  position: relative;
+}
+.timeline .timeline-content .left{
+  float: left;
+}
+.timeline .timeline-content .right{
+  float: right;
+}
+.timeline .timeline-content .content{
+  padding: 20px;
+  background-color: #fff;
+}
+.timeline .timeline-content .content h3{
+  font-weight: bold;
+  color: var(--main-color);
+  margin: 0 0 10px;
+}
+.timeline .timeline-content .content p{
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+.timeline .timeline-content .left .content::before,
+.timeline .timeline-content .right .content::before{
+  content: '';
+  position: absolute;
+  top: 14px;
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+}
+.timeline .timeline-content .left .content::before{
+  right: -18px;
+  border-color: transparent transparent transparent #fff;
+}
+.timeline .timeline-content .right .content::before{
+  left: -18px;
+  border-color: transparent #fff transparent transparent;
+}
+.clear{
+  clear: both;
+}
+.timeline .timeline-content .left::after,
+.timeline .timeline-content .right::after{
+  content: '';
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: 20px;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border-radius: 50%;
+  border: 4px solid var(--main-color);
+}
+.timeline .timeline-content .left::after{
+  right: -35px;
+}
+.timeline .timeline-content .right::after{
+  left: -35px;
+}
+/* End Timeline */
