@@ -1,77 +1,161 @@
-const settings = document.getElementById('settings'),
-      settingsBox = document.querySelector('.settings-box'),
-      colors  = document.querySelectorAll('.option span'),
-      bgButtons = document.querySelectorAll('.bg button');
+// Check If There's Local Storage Color Option
+let mainColors = localStorage.getItem("color_option");
 
-if(localStorage.getItem('color')){
-  document.documentElement.style.setProperty('--main-color', localStorage.getItem('color'))
-  colors.forEach(ele => {
-    ele.classList.remove('active');
-    if(ele.dataset.color == localStorage.getItem('color')){
-      ele.classList.add('active')
+// If There's Color Item In Local Storage
+if (mainColors !== null) {
+
+  // console.log('Local Storage Is Not Empty You Can Set It On Root Now');
+  // console.log(localStorage.getItem("color_option"));
+
+  document.documentElement.style.setProperty('--main-color', mainColors);
+
+  // Remove Active Class From All Colors List Item
+  document.querySelectorAll(".colors-list li").forEach(element => {
+
+    element.classList.remove("active");
+
+    // Add Active Class On Element With Data-Color === Local Storage Item
+    if (element.dataset.color === mainColors) {
+
+      // Add Active Class
+      element.classList.add("active");
+
     }
-  })
+
+  });
+
 }
-let randomBackgrounds = true;
+
+// Random Background Option
+let backgroundOption = true;
+
+// Variable To Control The Background Interval
 let backgroundInterval;
-let localBackground = localStorage.getItem('randomBackgrounds');
-if(localBackground == false){
-  randomizeImgs();
-} else if(localBackground == null){
-  randomBackgrounds = true;
-  randomizeImgs();
-}
-if(localBackground === 'false'){
-  document.querySelector('.option button[data-run="1"]').classList.remove("active");
-  document.querySelector('.option button[data-run="0"]').classList.add("active");
-}
-// Start Settings Box
-settings.addEventListener('click', () => {
-  settingsBox.classList.toggle('show');
-  settings.classList.toggle('show')
-})
-// colors
-colors.forEach((sp) => {
-  sp.addEventListener('click', () => {
-    removeActive(colors);
-    sp.classList.add('active');
-    document.querySelector(':root').style.setProperty('--main-color', sp.getAttribute('data-color'));
-    localStorage.setItem('color', sp.getAttribute('data-color'));
-  });
-});
-// buttons
-bgButtons.forEach((but) => {
-  but.addEventListener('click', () => {
-    removeActive(bgButtons);
-    but.classList.add('active');
-    randomBackgrounds = Boolean(Number(but.getAttribute('data-run')));
-    randomizeImgs();
-    localStorage.setItem('randomBackgrounds', randomBackgrounds)
-  });
-});
-function removeActive(arr){
-  arr.forEach((e) => {
-    e.classList.remove('active');
-  })
-}
-// End Settings Box
 
-// Start Landing 
-const landing = document.querySelector('.landing-page');
-function randomizeImgs(){
-  if(randomBackgrounds){
-    backgroundInterval = setInterval(() => {
-      landing.style.backgroundImage = `url('../imgs/0${Math.floor(Math.random() * 5) + 1}.jpg')`;
-    }, 1000);
-  } else{
-    clearInterval(backgroundInterval)
+// Check If There's Local Storage Random Background Item
+let backgroundLocalItem = localStorage.getItem("background_option");
+
+// Check If Random Background Local Storage Is Not EMpty
+if (backgroundLocalItem !== null) {
+
+  // Remove Active Class From All Spans
+  document.querySelectorAll(".random-backgrounds span").forEach(element => {
+
+    element.classList.remove("active");
+
+  });
+
+  if (backgroundLocalItem === 'true') {
+
+    backgroundOption = true;
+
+    document.querySelector(".random-backgrounds .yes").classList.add("active");
+
+  } else {
+
+    backgroundOption = false;
+
+    document.querySelector(".random-backgrounds .no").classList.add("active");
+
   }
-}
-// End Landing 
 
+}
+
+// Click On Toggle Settings Gear
+document.querySelector(".toggle-settings .fa-gear").onclick = function () {
+
+  // Toggle Class Fa-spin For Rotation on Self
+  this.classList.toggle("fa-spin");
+
+  // Toggle Class Open On Main Settings Box
+  document.querySelector(".settings-box").classList.toggle("open");
+  
+};
+
+// Switch Colors
+const colorsLi = document.querySelectorAll(".colors-list li");
+
+// Loop On All List Items
+colorsLi.forEach(li => {
+
+  // Click On Every List Items
+  li.addEventListener("click", (e) => {
+
+    // Set Color On Root
+    document.documentElement.style.setProperty('--main-color', e.target.dataset.color);
+
+    // Set Color On Local Storage
+    localStorage.setItem("color_option", e.target.dataset.color);
+
+    handleActive(e);
+
+  });
+
+});
+
+// Switch Random Background Option
+const randomBackEl = document.querySelectorAll(".random-backgrounds span");
+
+// Loop On All Spans
+randomBackEl.forEach(span => {
+
+  // Click On Every Span
+  span.addEventListener("click", (e) => {
+
+    handleActive(e);
+
+    if (e.target.dataset.background === 'yes') {
+
+      backgroundOption = true;
+
+      randomizeImgs();
+
+      localStorage.setItem("background_option", true);
+
+    } else {
+
+      backgroundOption = false;
+
+      clearInterval(backgroundInterval);
+
+      localStorage.setItem("background_option", false);
+
+    }
+
+  });
+
+});
+
+// Select Landing Page Element
+let landingPage = document.querySelector(".landing-page");
+
+// Get Array Of Imgs
+let imgsArray = ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"];
+
+// Function To Randomize Imgs
+function randomizeImgs() {
+
+  if (backgroundOption === true) {
+
+    backgroundInterval = setInterval(() => {
+
+      // Get Random Number
+      let randomNumber = Math.floor(Math.random() * imgsArray.length);
+    
+      // Change Background Image Url 
+      landingPage.style.backgroundImage = 'url("imgs/' + imgsArray[randomNumber] + '")';
+    
+    }, 10000);
+
+  }
+
+}
+
+randomizeImgs();
 
 // Select Skills Selector
-let ourSkills = document.querySelector('.skills-section')
+let ourSkills = document.querySelector(".skills");
+
 window.onscroll = function () {
 
   // Skills Offset Top
@@ -86,12 +170,15 @@ window.onscroll = function () {
   // Window ScrollTop
   let windowScrollTop = this.pageYOffset;
 
-  if (windowScrollTop > (skillsOffsetTop + skillsOuterHeight - windowHeight - 200)) {
+  if (windowScrollTop > (skillsOffsetTop + skillsOuterHeight - windowHeight)) {
 
-    let skills = document.querySelectorAll('.skills-section .item .progress span');
-    skills.forEach(ele => {
-      ele.style.width = ele.dataset.progress
-    })
+    let allSkills = document.querySelectorAll(".skill-box .skill-progress span");
+
+    allSkills.forEach(skill => {
+
+      skill.style.width = skill.dataset.progress;
+
+    });
 
   }
 
@@ -180,3 +267,156 @@ document.addEventListener("click", function (e) {
   }
 
 });
+
+// Select All Bullets
+const allBullets = document.querySelectorAll(".nav-bullets .bullet");
+
+// Select All Links
+const allLinks = document.querySelectorAll(".links a");
+
+function scrollToSomewhere(elements) {
+
+  elements.forEach(ele => {
+
+    ele.addEventListener("click", (e) => {
+  
+      e.preventDefault();
+  
+      document.querySelector(e.target.dataset.section).scrollIntoView({
+  
+        behavior: 'smooth'
+  
+      });
+  
+    });
+  
+  });
+
+}
+
+scrollToSomewhere(allBullets);
+scrollToSomewhere(allLinks);
+
+// Handle Active State
+function handleActive(ev) {
+
+  // Remove Active Class From All Childrens
+  ev.target.parentElement.querySelectorAll(".active").forEach(element => {
+
+    element.classList.remove("active");
+
+  });
+
+  // Add Active Class On Self
+  ev.target.classList.add("active");
+
+}
+
+let bulletsSpan = document.querySelectorAll(".bullets-option span");
+
+let bulletsContainer = document.querySelector(".nav-bullets");
+
+let bulletLocalItem = localStorage.getItem("bullets_option");
+
+if (bulletLocalItem !== null) {
+
+  bulletsSpan.forEach(span => {
+
+    span.classList.remove("active");
+
+  });
+
+  if (bulletLocalItem === 'block') {
+
+    bulletsContainer.style.display = 'block';
+
+    document.querySelector(".bullets-option .yes").classList.add("active");
+
+  } else {
+
+    bulletsContainer.style.display = 'none';
+
+    document.querySelector(".bullets-option .no").classList.add("active");
+
+  }
+
+}
+
+bulletsSpan.forEach(span => {
+
+  span.addEventListener("click", (e) => {
+
+    if (span.dataset.display === 'show') {
+
+      bulletsContainer.style.display = 'block';
+
+      localStorage.setItem("bullets_option", 'block');
+
+    } else {
+
+      bulletsContainer.style.display = 'none';
+
+      localStorage.setItem("bullets_option", 'none');
+
+    }
+
+    handleActive(e);
+
+  });
+
+});
+
+// Reset Button
+document.querySelector(".reset-options").onclick = function () {
+
+  // localStorage.clear();
+  localStorage.removeItem("color_option");
+  localStorage.removeItem("background_option");
+  localStorage.removeItem("bullets_option");
+
+  // Reload Window
+  window.location.reload();
+
+};
+
+// Toggle Menu 
+let toggleBtn = document.querySelector(".toggle-menu");
+let tLinks = document.querySelector(".links");
+
+toggleBtn.onclick = function (e) {
+
+  // Stop Propagation
+  e.stopPropagation();
+
+  // Toggle Class "menu-active" On Button
+  this.classList.toggle("menu-active");
+
+  // Toggle Class "open" On Links
+  tLinks.classList.toggle("open");
+
+};
+
+// Click Anywhere Outside Menu And Toggle Button
+document.addEventListener("click", (e) => {
+
+  if (e.target !== toggleBtn && e.target !== tLinks) {
+
+    // Check If Menu Is Open
+    if (tLinks.classList.contains("open")) {
+
+      // Toggle Class "menu-active" On Button
+      toggleBtn.classList.toggle("menu-active");
+
+      // Toggle Class "open" On Links
+      tLinks.classList.toggle("open");
+
+    }
+
+  }
+
+});
+
+// Stop Propagation On Menu 
+tLinks.onclick = function (e) {
+  e.stopPropagation();
+}
